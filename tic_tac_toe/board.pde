@@ -1,9 +1,9 @@
 // sets up grid lines
 void drawBoard() {
-  line(width/3, 0, width/3, height);
-  line(width-(width/3), 0, width-(width/3), height);
+  line(width/3, height, width/3, 0);
+  line(width*(0.66), height, width*(0.66), 0);
   line(0, height/3, width, height/3);
-  line(0, height-(height/3), width, width-(width/3)); 
+  line(0, height*(0.66), width, height*(0.66)); 
 }
 
 // user input
@@ -23,21 +23,43 @@ void keyPressed() {
   // checking if input valid 
   switch (key) {
     case '0':
-      println("Game still in progress.); 
+      println("Game still in progress."); 
       break; 
+      
+    case '1':
+      println("Game still in progress."); 
+      break; 
+      
+    case '2':
+      println("Game still in progress."); 
+      break; 
+      
+    case '3':
+      println("Game still in progress."); 
+      break; 
+      
+    case '4':
+      println("Game still in progress."); 
+      break; 
+      
+    case '5':
+      println("Game still in progress."); 
+      break; 
+      
+    case '6':
+      println("Game still in progress."); 
+      break; 
+      
+    case '7':
+      println("Game still in progress."); 
+      break; 
+      
+    case '8':
+      println("Game still in progress."); 
+      break; 
+      
     default:
-      println("Invalid input); 
+      println("Invalid input"); 
       break; 
   }
 }
-  
-  
-  /*
-  if (square == 0 || square == 1 || square == 2 || square == 3 || square == 4 || square == 5 || square == 6 || square == 7 || square == 8) {
-    println("Game still in progress.");
-  }  
-  
-  else {
-    println("Invalid input. Press a number between 0-8!"); 
-  }
-  */
