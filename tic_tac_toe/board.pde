@@ -6,18 +6,28 @@ void drawBoard() {
   line(0, height*(0.66), width, height*(0.66)); 
 }
 
+int[][] gameBoard = new int[3][3]; 
+boolean userTurn = true; 
+
 // user input
 void keyPressed() {
-  int[][] board = new int[BOARD_SIZE][BOARD_SIZE]; 
   int square = key - '0'; 
-  
-  // calculates row and column based on square 
-  int row = square%3;
-  int col = square/3; 
-  
+  int row = -1;
+  int col = -1; 
+
+  // Check if square is within the valid range
+  if (square >= 0 && square <= 8) {
+    row = square / 3;
+    col = square % 3;
+  } 
+  else {
+   println("Invalid input");
+   return; 
+  }
+
   // checks if tile is taken 
-  if (board[row][col] == EMPTY) {
-    board[row][col] = USER; 
+  if (gameBoard[row][col] == EMPTY) {
+    gameBoard[row][col] = USER; 
   }
   
   else {
@@ -25,49 +35,102 @@ void keyPressed() {
   }
   
   // checking if input valid 
-  switch (key) {
-    case '0':
-      println("Game still in progress."); 
-      break; 
-      
-    case '1':
-      println("Game still in progress."); 
-      break; 
-      
-    case '2':
-      println("Game still in progress."); 
-      break; 
-      
-    case '3':
-      println("Game still in progress."); 
-      break; 
-      
-    case '4':
-      println("Game still in progress."); 
-      break; 
-      
-    case '5':
-      println("Game still in progress."); 
-      break; 
-      
-    case '6':
-      println("Game still in progress."); 
-      break; 
-      
-    case '7':
-      println("Game still in progress."); 
-      break; 
-      
-    case '8':
-      println("Game still in progress."); 
-      break; 
-       
-    default:
-      println("Invalid input"); 
-      break; 
+  switch (square) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+          println("Game still in progress.");
+          break;
+      default:
+          println("Invalid input");
+          break;
+  }
+  
+  if (!checkGameEnd()) {
+    if (!userTurn) {
+      computerPlay(gameBoard);
+      userTurn = true; 
+    } else {
+      userPlay(gameBoard);
+      userTurn = false; 
+    }
   }
 }
 
-void computerPlay() {
-  
+void computerPlay(int[][] board) {
+  if (!userTurn) {
+    for (int row = 0; row < board.length; row++) {
+      for (int col = 0; col < board[row].length; col++) {
+        if (board[row][col] == EMPTY) {
+          board[row][col] = COMPUTER; 
+          draw0(row, col, CELL_SIZE); 
+          return; 
+        }
+      }
+    }
+    userTurn = true; 
+  }
+}
+
+void userPlay(int[][] board) {
+  for (int row = 0; row < board.length; row++) {
+    for (int col = 0; col < board[row].length; col++) {
+      if (board[row][col] == EMPTY) {
+        board[row][col] = USER; 
+        drawX(row, col, CELL_SIZE); 
+        return; 
+      }
+    }
+  }
+}
+
+boolean checkGameEnd() {
+  // Check rows for a win
+  for (int row = 0; row < BOARD_SIZE; row++) {
+    if (gameBoard[row][0] != EMPTY && gameBoard[row][0] == gameBoard[row][1] && gameBoard[row][0] == gameBoard[row][2]) {
+      println("Player " + (gameBoard[row][0] == USER ? "X" : "O") + " wins!");
+      return true;
+    }
+  }
+
+  // Check columns for a win
+  for (int col = 0; col < BOARD_SIZE; col++) {
+    if (gameBoard[0][col] != EMPTY && gameBoard[0][col] == gameBoard[1][col] && gameBoard[0][col] == gameBoard[2][col]) {
+      println("Player " + (gameBoard[0][col] == USER ? "X" : "O") + " wins!");
+      return true;
+    }
+  }
+
+  // Check diagonals for a win
+  if (gameBoard[0][0] != EMPTY && gameBoard[0][0] == gameBoard[1][1] && gameBoard[0][0] == gameBoard[2][2]) {
+    println("Player " + (gameBoard[0][0] == USER ? "X" : "O") + " wins!");
+    return true;
+  }
+  if (gameBoard[0][2] != EMPTY && gameBoard[0][2] == gameBoard[1][1] && gameBoard[0][2] == gameBoard[2][0]) {
+    println("Player " + (gameBoard[0][2] == USER ? "X" : "O") + " wins!");
+    return true;
+  }
+
+  // Check for a tie
+  boolean boardFull = true;
+  for (int row = 0; row < BOARD_SIZE; row++) {
+    for (int col = 0; col < BOARD_SIZE; col++) {
+      if (gameBoard[row][col] == EMPTY) {
+        boardFull = false;
+        break;
+      }
+    }
+  }
+  if (boardFull) {
+    println("It's a tie!");
+    return true;
+  }
+
+  return false; // Game is still in progress
 }
