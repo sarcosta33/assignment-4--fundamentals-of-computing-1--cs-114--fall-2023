@@ -55,7 +55,6 @@ void keyPressed() {
   if (!checkGameEnd()) {
     if (!userTurn) {
       computerPlay(gameBoard);
-      userTurn = true; 
     } else {
       userPlay(gameBoard);
       userTurn = false; 
