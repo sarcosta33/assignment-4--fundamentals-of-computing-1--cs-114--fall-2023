@@ -68,7 +68,7 @@ void computerPlay(int[][] board) {
       for (int col = 0; col < board[row].length; col++) {
         if (board[row][col] == EMPTY) {
           board[row][col] = COMPUTER; 
-          draw0(row, col, CELL_SIZE); 
+          drawX(row, col, CELL_SIZE); 
           return; 
         }
       }
@@ -82,7 +82,7 @@ void userPlay(int[][] board) {
     for (int col = 0; col < board[row].length; col++) {
       if (board[row][col] == EMPTY) {
         board[row][col] = USER; 
-        drawX(row, col, CELL_SIZE); 
+        draw0(row, col, CELL_SIZE); 
         return; 
       }
     }
