@@ -1,12 +1,9 @@
 void setup() {
   size(500, 500);
-  drawBoard(); 
-  println("You did not press a number between 0-8."); 
-  userTurn = false; // Computer starts first
-  computerPlay(gameBoard);
+  initializeGameBoard();
+  println("Computer starts the game. Press a number between 0-8 to play.");
 }
 
 void draw() {
-  keyPressed();
-  noLoop();  
+  drawBoard(gameBoard);
 }
